@@ -1,7 +1,7 @@
 
 #include "filler.h"
 
-void	set_value(t_filler *data, int i, int j)
+void	set_heat_value(t_filler *data, int i, int j)
 {
 	if (data->target == data->enemy)
 	{
@@ -14,6 +14,7 @@ void	set_value(t_filler *data, int i, int j)
 		if (data->map[i - 1][j] == 0)
 			data->map[i - 1][j] = 1;
 		data->target = 0;
+		return ;
 	}
 	if (data->map[i][j + 1] == 0 || data->map[i][j + 1] > data->map[i][j] + 1)
 		data->map[i][j + 1] = data->map[i][j] + 1;
@@ -40,7 +41,7 @@ void	create_heat_map(t_filler *data)
 		{
 			if (data->map[i][j] == data->target)
 			{
-				set_value(data, i, j);
+				set_heat_value(data, i, j);
 				target_found = 1;
 			}
 			j++;

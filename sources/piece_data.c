@@ -5,6 +5,7 @@ void	init_piece(t_filler *data, t_piece *piece)
 {
 	piece->piece = (int **)malloc(sizeof(int *) * data->piece_y);
 	piece->actual_size = 0;
+	piece->temp_value = 0;
 }
 
 int	*convert_to_int_piece(t_filler *data, char *line, t_piece *piece)

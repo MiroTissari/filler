@@ -18,6 +18,9 @@ typedef struct s_filler
 	char		*line;
 	int			mapsize_x;
 	int			mapsize_y;
+	int			best_val;
+	int			best_x;
+	int			best_y;
 
 	s_piece		*piece;
 	int			piece_x;
@@ -28,6 +31,7 @@ typedef struct s_piece
 {
 	int			**piece;
 	int			actual_size;
+	int			temp_value;
 }				t_piece;
 
 int		main(void);

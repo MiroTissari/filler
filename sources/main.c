@@ -18,9 +18,22 @@ void	init_t_filler(t_filler *data)
 	data->enemy = -2;
 	data->boss_sign = 0;
 	data->enemy_sign = 0;
-	data->target = data->enemy;
+	data->boss_sign_s = 0;
+	data->enemy_sign_s = 0;
 	data->map = NULL;
 	data->line = NULL;
+	data->mapsize_x = 0;
+	data->mapsize_y = 0;
+
+	data->target = data->enemy;
+	data->first_round = 1;
+	data->best_val = 500;
+	data->best_x = 0;
+	data->best_y = 0;
+
+	data->piece = NULL;
+	data->piece_x = 0;
+	data->piece_y = 0;
 }
 
 void	reset_data(t_filler *data)
@@ -29,6 +42,10 @@ void	reset_data(t_filler *data)
 
 	data->line = NULL;
 	data->first_round = 0;
+	data->target = data->enemy;
+	data->best_val = 500;
+	data->best_x = 0;
+	data->best_y = 0;
 	i = 0;
 	while (data->piece->piece[i])
 	{
@@ -37,7 +54,10 @@ void	reset_data(t_filler *data)
 		i++;
 	}
 	free(data->piece);
+	data->piece->piece = NULL;
 	data->piece = NULL;
+	data->piece_x = 0;
+	data->piece_y = 0;
 }
 
 int	make_grid(t_filler *data, int ret)
@@ -48,7 +68,6 @@ int	make_grid(t_filler *data, int ret)
 	i = 0;
 	if (!check_map_size(data, ret))
 		return (0);
-	data->first_round = 1;
 	while (i < data->mapsize_y)
 	{
 		j = 0;
@@ -77,9 +96,8 @@ int	main()
 	{
 		if (!get_map_and_piece(&data, ret))
 			return (1);
-		transform_map(&data);
 		create_heat_map(&data);
-		
+		get_coords(&data);
 		reset_data(&data);
 	}
 	return (0);
