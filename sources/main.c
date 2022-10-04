@@ -14,10 +14,11 @@
 
 void	init_t_filler(t_filler *data)
 {
-	data->boss = 0;
+	data->boss = -1;
+	data->enemy = -2;
 	data->boss_sign = 0;
-	data->enemy = 0;
 	data->enemy_sign = 0;
+	data->target = data->enemy;
 	data->map = NULL;
 	data->line = NULL;
 }
@@ -35,6 +36,7 @@ void	reset_data(t_filler *data)
 		data->piece->piece[i] = NULL;
 		i++;
 	}
+	free(data->piece);
 	data->piece = NULL;
 }
 
@@ -77,7 +79,7 @@ int	main()
 			return (1);
 		transform_map(&data);
 		create_heat_map(&data);
-
+		
 		reset_data(&data);
 	}
 	return (0);

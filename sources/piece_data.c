@@ -1,7 +1,13 @@
 
 #include "filler.h"
 
-int	*convert_to_int_piece(t_filler *data, char *line)
+void	init_piece(t_filler *data, t_piece *piece)
+{
+	piece->piece = (int **)malloc(sizeof(int *) * data->piece_y);
+	piece->actual_size = 0;
+}
+
+int	*convert_to_int_piece(t_filler *data, char *line, t_piece *piece)
 {
 	int	i;
 	int	*arr;
@@ -15,7 +21,10 @@ int	*convert_to_int_piece(t_filler *data, char *line)
 		if (line[i] == '.')
 			arr[i] = 0;
 		else if (line[i] == '*')
+		{
 			arr[i] = -3;
+			piece->actual_size++;
+		}
 		i++;
 	}
 	return (arr);
@@ -26,12 +35,13 @@ int	read_piece(t_filler *data, t_piece *piece, int ret)
 	int	i;
 
 	i = 0;
+	init_piece(data, piece);
 	while(i < data->piece_y)
 	{
 		ret = get_next_line(0, &data->line);
 		if (ret < 0)
 			return (0);
-		piece->piece[i] = convert_to_int_piece(data, data->line);
+		piece->piece[i] = convert_to_int_piece(data, data->line, piece);
 		ft_strdel(&data->line);
 		i++;
 	}

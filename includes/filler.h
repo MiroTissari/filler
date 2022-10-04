@@ -12,6 +12,7 @@ typedef struct s_filler
 	int			boss_sign_s;
 	int			enemy_sign_s;
 	int			first_round;
+	int			target;
 
 	int			**map;
 	char		*line;
@@ -26,7 +27,7 @@ typedef struct s_filler
 typedef struct s_piece
 {
 	int			**piece;
-	
+	int			actual_size;
 }				t_piece;
 
 int		main(void);

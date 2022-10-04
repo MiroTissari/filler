@@ -95,7 +95,6 @@ int	get_map_and_piece(t_filler *data, int ret)
 	if (!read_piece_size(data, ret))
 		return (0);
 	piece = (t_piece *)malloc(sizeof(t_piece));
-	piece->piece = (int **)malloc(sizeof(int *) * data->piece_y);
 	if (!read_piece(data, piece, ret))
 		return (0);
 	data->piece = piece;
