@@ -22,7 +22,8 @@ ft_strcpy.c ft_strdel.c ft_strdup.c ft_strequ.c ft_striter.c ft_striteri.c \
 ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c \
 ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c \
 ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
-get_next_line.c ft_strjoin_free.c ft_is_neg.c ft_double_power.c
+get_next_line.c ft_strjoin_free.c ft_is_neg.c ft_double_power.c \
+ft_strchr_place.c ft_strrchr_place.c
 #SOURCES := $(addprefix $(ROOT), $(FUNCTIONS))
 INCLUDES := .
 O_FILES = $(FUNCTIONS:.c=.o)
@@ -40,7 +41,7 @@ clean:
 	@rm -f $(O_FILES)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 

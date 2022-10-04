@@ -60,8 +60,8 @@ int	read_piece_size(t_filler *data, int ret)
 		return (0);
 	if (ft_strnstr(data->line, "Piece", 6))
 		return (0);
-	i = ft_strchr(data->line, ' ') + 1;
-	j = ft_strrchr(data->line, ' ') + 1;
+	i = ft_strchr_place(data->line, ' ') + 1;
+	j = ft_strrchr_place(data->line, ' ') + 1;
 	data->piece_y = ft_atoi(&data->line[i]);
 	data->piece_x = ft_atoi(&data->line[j]);
 	ft_strdel(&data->line);

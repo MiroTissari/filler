@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "filler.h"
+#include <fcntl.h>
 
 void	init_t_filler(t_filler *data)
 {
@@ -34,6 +35,7 @@ void	init_t_filler(t_filler *data)
 	data->piece = NULL;
 	data->piece_x = 0;
 	data->piece_y = 0;
+	printf("initializing t_filler\n");
 }
 
 void	reset_data(t_filler *data)
@@ -58,47 +60,60 @@ void	reset_data(t_filler *data)
 	data->piece = NULL;
 	data->piece_x = 0;
 	data->piece_y = 0;
+	printf("reset_data\n");
 }
 
-int	make_grid(t_filler *data, int ret)
+int	make_grid(t_filler *data, int fd)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	if (!check_map_size(data, ret))
+	printf("making grid\n");
+	if (!check_map_size(data, fd))
 		return (0);
+	data->map = (int **)malloc(sizeof(int *) * data->mapsize_y);//this
 	while (i < data->mapsize_y)
 	{
+		printf("\t\t\t\t");
 		j = 0;
 		data->map[i] = (int *)malloc(sizeof(int) * data->mapsize_x);
 		while (j < data->mapsize_x)
 		{
 			data->map[i][j] = 0;
+			printf(" %i", data->map[i][j]);
 			j++;
 		}
+		printf("\n");
 		i++;
 	}
-	data->map[i] = NULL;
-	return (ret);
+	printf("\n");
+	//data->map[i] = NULL;
+	return (1);
 }
 
-int	main()
+int	main(int argc, char **argv)
 {
 	t_filler	data;
 	int			ret;
+	int			fd;
 
 	ret = 1;
+	if (argc == 2)
+		fd = open (argv[1], O_RDONLY);
+	else
+		return (0);
 	init_t_filler(&data);
-	if (!get_players(&data, ret) || !make_grid(&data, ret))
+	if (!get_players(&data, fd) || !make_grid(&data, fd))
 		return (1);
 	while (ret == 1)
 	{
-		if (!get_map_and_piece(&data, ret))
+		if (!get_map_and_piece(&data, fd))
 			return (1);
 		create_heat_map(&data);
 		get_coords(&data);
 		reset_data(&data);
+		close (fd);
 	}
 	return (0);
 }

@@ -43,17 +43,18 @@ void	fit_in_piece(t_filler *data, int i, int j)
 	int jj;
 
 	ii = 0;
-	while (data->piece[ii])
+	while (data->piece->piece[ii] != NULL)
 	{
 		jj = 0;
-		while (data->piece[ii][jj])
+		while (data->piece->piece[ii][jj])
 		{
-			if (data->piece[ii][jj] == -3)
+			if (data->piece->piece[ii][jj] == -3)
 			{
 				overlay += check_overlay(data, i + ii, j + jj);
 			}
 			jj++;
 		}
+		ii++;
 	}
 	if (overlay == 1)
 		save_value(data, i, j);

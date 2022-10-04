@@ -1,33 +1,39 @@
 
 #include "filler.h"
 
-int	check_columns(t_filler *data, int ret)
+int	check_columns(t_filler *data, int fd)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
-	ret = get_next_line(0, &data->line);
+	ret = get_next_line(fd, &data->line);
 	if (ret < 0)
 		return (0);
 	while (data->line[i] == ' ')
 		i++;
 	while (ft_isdigit(data->line[i]))
 		i++;
+	printf("column line:%s\n", data->line);
 	ft_strdel(&data->line);
 	if (i != data->mapsize_x + 4)
 		return (0);
+	
 	return (ret);
 }
 
-int	check_map_size(t_filler *data, int ret)
+int	check_map_size(t_filler *data, int fd)
 {
 	int	i;
 	int	j;
+	int	ret;
 
-	ret = get_next_line(0, &data->line);
+	printf("checking map size:\n");
+	ret = get_next_line(fd, &data->line);
 	if (ret < 0)
 		return (0);
-	if (ft_strnstr(data->line, "Plateau", 8))
+	printf("line: %s\n", data->line);
+	if (ft_strncmp(data->line, "Plateau", 7))//strncmp & 7
 		return (0);
 	i = ft_strchr_place(data->line, ' ') + 1;
 	j = ft_strrchr_place(data->line, ' ') + 1;
@@ -40,14 +46,16 @@ int	check_map_size(t_filler *data, int ret)
 		ft_atoi(&data->line[j]) != data->mapsize_x)
 		return (0);
 	ft_strdel(&data->line);
-	if (!check_columns(data, ret))
+	if (!check_columns(data, fd))
 		return (0);
+	printf("map size y: %i\n", data->mapsize_y);
+	printf("map size x: %i\n", data->mapsize_x);
 	return (ret);
 }
 
 void	convert_to_int_map(t_filler *data, char *line, int i, int j)
 {
-	while (line[j] != '0')
+	while (line[j] != '\0')
 	{
 		if (line[j] == '.')
 			data->map[i][j] = 0;
@@ -55,42 +63,57 @@ void	convert_to_int_map(t_filler *data, char *line, int i, int j)
 			data->map[i][j] = -1;
 		else if (line[j] == data->enemy_sign || line[j] == data->enemy_sign_s)
 			data->map[i][j] = -2;
+		printf("%i", data->map[i][j]);
 		j++;
 	}
+	printf("\n");
 }
 
-int	read_map(t_filler *data, int ret)
+int	read_map(t_filler *data, int fd)
 {
 	int	i;
 	int	j;
+	int	ret;
+	//char	*temp;
 
 	i = 0;
 	while(i < data->mapsize_y)
 	{
-		ret = get_next_line(0, &data->line);
+		ret = get_next_line(fd, &data->line);
+		//temp = data->line;
 		if (ret < 0)
 			return (0);
 		j = ft_strchr_place(data->line, ' ') + 1;
 		convert_to_int_map(data, data->line, i, j);
+		//printf("line: %s\n", data->line);
 		ft_strdel(&data->line);
+		i++;
 	}
 	data->map[i] = NULL;
 	return (ret);
 }
 
-int	get_map_and_piece(t_filler *data, int ret)
+int	get_map_and_piece(t_filler *data, int fd)
 {
 	t_piece	*piece;
+	int		ret;
 
+	ret = 1;
+	printf("get_map_and_piece1\n");
 	if (data->first_round == 0)
-		ret = !check_map_size(data, ret);
-	if (ret != 1 || !read_map(data, ret))
+		ret = check_map_size(data, fd);
+	printf("get_map_and_piece2\n");
+	if (ret != 1 || read_map(data, fd) != 1)
 		return (0);
-	if (!read_piece_size(data, ret))
+	printf("get_map_and_piece3\n");
+	if (!read_piece_size(data, fd))
 		return (0);
+	printf("get_map_and_piece4\n");
 	piece = (t_piece *)malloc(sizeof(t_piece));
-	if (!read_piece(data, piece, ret))
+	printf("get_map_and_piece5\n");
+	if (!read_piece(data, piece, fd))
 		return (0);
+	printf("get_map_and_piece6\n");
 	data->piece = piece;
 	return (ret);
 }
