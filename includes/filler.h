@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   filler.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/05 14:57:47 by mtissari          #+#    #+#             */
+/*   Updated: 2022/10/05 18:00:01 by mtissari         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FILLER_H
 # define FILLER_H
 
@@ -14,6 +26,7 @@ typedef struct s_filler
 	int			enemy_sign_s;
 	int			first_round;
 	int			target;
+	int			ret;
 
 	int			**map;
 	char		*line;

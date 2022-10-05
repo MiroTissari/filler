@@ -1,18 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   coordinates.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/05 14:56:50 by mtissari          #+#    #+#             */
+/*   Updated: 2022/10/05 17:57:16 by mtissari         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "filler.h"
 
 void	print_coords(t_filler *data)
 {
-	char	*temp;
-
-	temp = ft_itoa(data->best_y);
-	ft_putstr(temp);
-	free (temp);
+	ft_putnbr(data->best_y);
 	ft_putstr(" ");
-	temp = ft_itoa(data->best_x);
-	ft_putstr(temp);
+	ft_putnbr(data->best_x);
 	ft_putchar('\n');
-	ft_strdel(&temp);
 }
 
 void	save_value(t_filler *data, int i, int j)
@@ -40,13 +45,14 @@ void	fit_in_piece(t_filler *data, int i, int j)
 {
 	int	overlay;
 	int	ii;
-	int jj;
+	int	jj;
 
 	ii = 0;
-	while (data->piece->piece[ii] != NULL)
+	overlay = 0;
+	while (ii < data->piece_y)
 	{
 		jj = 0;
-		while (data->piece->piece[ii][jj])
+		while (jj < data->piece_x)
 		{
 			if (data->piece->piece[ii][jj] == -3)
 			{
@@ -67,6 +73,7 @@ void	get_coords(t_filler *data)
 	int	j;
 
 	i = 0;
+	printf("coords\n");
 	while (i <= data->mapsize_y - data->piece_y)
 	{
 		j = 0;
@@ -77,5 +84,6 @@ void	get_coords(t_filler *data)
 		}
 		i++;
 	}
+	printf("coords2\n");
 	print_coords(data);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:39:26 by mtissari          #+#    #+#             */
-/*   Updated: 2022/09/20 17:39:27 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:01:00 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	init_t_filler(t_filler *data)
 	data->line = NULL;
 	data->mapsize_x = 0;
 	data->mapsize_y = 0;
+	data->ret = 1;
 
-	data->target = data->enemy;
+	data->target = -2;
 	data->first_round = 1;
 	data->best_val = 500;
 	data->best_x = 0;
@@ -49,18 +50,32 @@ void	reset_data(t_filler *data)
 	data->best_x = 0;
 	data->best_y = 0;
 	i = 0;
-	while (data->piece->piece[i])
+	while (i < data->piece_y)
 	{
 		free (data->piece->piece[i]);
 		data->piece->piece[i] = NULL;
 		i++;
 	}
 	free(data->piece);
-	data->piece->piece = NULL;
 	data->piece = NULL;
 	data->piece_x = 0;
 	data->piece_y = 0;
+	data->target = -2;
 	printf("reset_data\n");
+}
+
+void	free_all(t_filler *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->mapsize_y)
+	{
+		free (data->map[i]);
+		data->map[i] = NULL;
+		i++;
+	}
+	free(data->map);
 }
 
 int	make_grid(t_filler *data, int fd)
@@ -97,6 +112,8 @@ int	main(int argc, char **argv)
 	t_filler	data;
 	int			ret;
 	int			fd;
+	int			i;
+	int			j;
 
 	ret = 1;
 	if (argc == 2)
@@ -106,14 +123,27 @@ int	main(int argc, char **argv)
 	init_t_filler(&data);
 	if (!get_players(&data, fd) || !make_grid(&data, fd))
 		return (1);
-	while (ret == 1)
+	while (data.ret == 1)
 	{
 		if (!get_map_and_piece(&data, fd))
 			return (1);
 		create_heat_map(&data);
+		i = 0;
+		while (i < data.mapsize_y)
+		{
+			j = 0;
+			while (j < data.mapsize_x)
+			{
+				printf("%i ", data.map[i][j]);
+				j++;
+			}
+			i++;
+			printf("\n");
+		}
 		get_coords(&data);
 		reset_data(&data);
-		close (fd);
 	}
+	close (fd);
+	free_all(&data);
 	return (0);
 }

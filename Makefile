@@ -6,7 +6,7 @@
 #    By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 17:38:03 by mtissari          #+#    #+#              #
-#    Updated: 2022/09/20 17:38:04 by mtissari         ###   ########.fr        #
+#    Updated: 2022/10/05 17:49:29 by mtissari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,13 +36,13 @@ $(NAME): $(O_FILES)
 	$(CC) $(CFLAGS) $(INCLUDES) $(O_FILES) -L$(LIBFT) -lft  -o $(NAME)
 
 test: $(TEST_O_FILES)
-	$(CC) $(CFLAGS) $(INCLUDES) $(TEST_O_FILES) -L$(LIBFT) -lft  -o test_file
+	$(CC) $(CFLAGS) -g $(INCLUDES) $(TEST_O_FILES) -L$(LIBFT) -lft  -o test_file
 
 $(TEST_O_FILES):
 	@echo "$(NAME): $(GREEN)Creating $(LIBFT)...$(RESET)"
 	make re -sC $(LIBFT)
 	@echo "$(NAME): $(GREEN)Creating Test_file...$(RESET)"
-	$(CC) $(CFLAGS) -c $(TEST_SOURCES) $(INCLUDES)  -L$(LIBFT) -lft
+	$(CC) $(CFLAGS) -c $(TEST_SOURCES) $(INCLUDES)
 
 $(O_FILES):
 	@echo "$(NAME): $(GREEN)Creating $(LIBFT)...$(RESET)"
@@ -55,11 +55,11 @@ $(O_FILES):
 
 
 clean:
-	@rm -f $(O_FILES) $(TEST_O_FILES) test_file
+	@rm -f $(O_FILES) $(TEST_O_FILES)
 	@make -sC $(LIBFT) clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) test_file
 	@make -sC $(LIBFT) fclean
 
 re: fclean all

@@ -11,7 +11,7 @@ int	get_players(t_filler *data, int fd)
 	if (ret < 1)
 		return (0);
 	temp = ft_strsplit(data->line, ' ');
-	ft_strdel (&data->line);
+	//ft_strdel (&data->line);
 	if (ft_strcmp(temp[0], "$$$") || ft_strcmp(temp[1], "exec"))
 		return (0);
 	if (!ft_strcmp(temp[2], "p1"))

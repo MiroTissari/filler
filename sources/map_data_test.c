@@ -15,10 +15,9 @@ int	check_columns(t_filler *data, int fd)
 	while (ft_isdigit(data->line[i]))
 		i++;
 	printf("column line:%s\n", data->line);
-	ft_strdel(&data->line);
+	//ft_strdel(&data->line);
 	if (i != data->mapsize_x + 4)
 		return (0);
-	
 	return (ret);
 }
 
@@ -30,6 +29,10 @@ int	check_map_size(t_filler *data, int fd)
 
 	printf("checking map size:\n");
 	ret = get_next_line(fd, &data->line);
+	//if (ret == 0)
+	//	data->ret = 0;
+	//	return(0);
+	printf("ret: %i\n", ret);
 	if (ret < 0)
 		return (0);
 	printf("line: %s\n", data->line);
@@ -42,10 +45,10 @@ int	check_map_size(t_filler *data, int fd)
 		data->mapsize_y = ft_atoi(&data->line[i]);
 		data->mapsize_x = ft_atoi(&data->line[j]);
 	}
-	if (ft_atoi(&data->line[i]) != data->mapsize_y ||
-		ft_atoi(&data->line[j]) != data->mapsize_x)
+	if (ft_atoi(&data->line[i]) != data->mapsize_y
+		|| ft_atoi(&data->line[j]) != data->mapsize_x)
 		return (0);
-	ft_strdel(&data->line);
+	//ft_strdel(&data->line);
 	if (!check_columns(data, fd))
 		return (0);
 	printf("map size y: %i\n", data->mapsize_y);
@@ -55,16 +58,20 @@ int	check_map_size(t_filler *data, int fd)
 
 void	convert_to_int_map(t_filler *data, char *line, int i, int j)
 {
+	int	x;
+
+	x = 0;
 	while (line[j] != '\0')
 	{
 		if (line[j] == '.')
-			data->map[i][j] = 0;
+			data->map[i][x] = 0;
 		else if (line[j] == data->boss_sign || line[j] == data->boss_sign_s)
-			data->map[i][j] = -1;
+			data->map[i][x] = -1;
 		else if (line[j] == data->enemy_sign || line[j] == data->enemy_sign_s)
-			data->map[i][j] = -2;
-		printf("%i", data->map[i][j]);
+			data->map[i][x] = -2;
+		printf("%i", data->map[i][x]);
 		j++;
+		x++;
 	}
 	printf("\n");
 }
@@ -85,8 +92,7 @@ int	read_map(t_filler *data, int fd)
 			return (0);
 		j = ft_strchr_place(data->line, ' ') + 1;
 		convert_to_int_map(data, data->line, i, j);
-		//printf("line: %s\n", data->line);
-		ft_strdel(&data->line);
+		//ft_strdel(&data->line);
 		i++;
 	}
 	data->map[i] = NULL;
