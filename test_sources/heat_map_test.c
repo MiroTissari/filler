@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "filter.h"
 
 void	set_heat_value(t_filler *data, int i, int j)
 {

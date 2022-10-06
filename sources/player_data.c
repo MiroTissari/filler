@@ -17,10 +17,10 @@ int	get_players(t_filler *data, int ret)
 	char	**temp;
 
 	ret = get_next_line(0, &data->line);
-	if (ret < 1)
-		return (0);
+	if (ret != 1)
+		return (ret);
 	temp = ft_strsplit(data->line, ' ');
-	ft_strdel (&data->line);
+	ft_strdel(&data->line);
 	if (ft_strcmp(temp[0], "$$$") || ft_strcmp(temp[1], "exec"))
 		return (0);
 	if (!ft_strcmp(temp[2], "p1"))
@@ -31,7 +31,7 @@ int	get_players(t_filler *data, int ret)
 	else if (!ft_strcmp(temp[2], "p2"))
 	{
 		data->boss_sign = 'X';
-		data->enemy_sign = 'O'; 
+		data->enemy_sign = 'O';
 	}
 	else
 		return (0);

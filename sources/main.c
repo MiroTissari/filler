@@ -27,7 +27,7 @@ void	init_t_filler(t_filler *data)
 
 	data->target = data->enemy;
 	data->first_round = 1;
-	data->best_val = 500;
+	data->best_val = 1000000;
 	data->best_x = 0;
 	data->best_y = 0;
 
@@ -43,21 +43,45 @@ void	reset_data(t_filler *data)
 	data->line = NULL;
 	data->first_round = 0;
 	data->target = data->enemy;
-	data->best_val = 500;
+	data->best_val = 1000000;
 	data->best_x = 0;
 	data->best_y = 0;
-	i = 0;
-	while (data->piece->piece[i])
+	if (data->piece)
 	{
-		free (data->piece->piece[i]);
-		data->piece->piece[i] = NULL;
-		i++;
+		i = 0;
+		while (data->piece->piece[i] && i < data->piece_y)
+		{
+			free (data->piece->piece[i]);
+			data->piece->piece[i] = NULL;
+			i++;
+		}
+		if (data->piece->piece)
+			free (data->piece->piece);
+		free(data->piece);
 	}
-	free(data->piece);
-	data->piece->piece = NULL;
 	data->piece = NULL;
 	data->piece_x = 0;
 	data->piece_y = 0;
+}
+
+int	free_all(t_filler *data, int ret)
+{
+	int	i;
+
+	i = 0;
+	if (data->map)
+	{
+		while (i < data->mapsize_y && data->map[i])
+		{
+			free (data->map[i]);
+			data->map[i] = NULL;
+			i++;
+		}
+		free(data->map);
+	}
+	if (ret == 0)
+		return (0);
+	return (1);
 }
 
 int	make_grid(t_filler *data, int ret)
@@ -68,10 +92,15 @@ int	make_grid(t_filler *data, int ret)
 	i = 0;
 	if (!check_map_size(data, ret))
 		return (0);
+	data->map = (int **)malloc(sizeof(int *) * data->mapsize_y);
+	if (!data->map)
+		return (0);
 	while (i < data->mapsize_y)
 	{
 		j = 0;
 		data->map[i] = (int *)malloc(sizeof(int) * data->mapsize_x);
+		if (!data->map[i])
+			return (0);
 		while (j < data->mapsize_x)
 		{
 			data->map[i][j] = 0;
@@ -79,11 +108,10 @@ int	make_grid(t_filler *data, int ret)
 		}
 		i++;
 	}
-	data->map[i] = NULL;
 	return (ret);
 }
 
-int	main()
+int	main(void)
 {
 	t_filler	data;
 	int			ret;
@@ -94,11 +122,13 @@ int	main()
 		return (1);
 	while (ret == 1)
 	{
-		if (!get_map_and_piece(&data, ret))
-			return (1);
+		ret = get_map_and_piece(&data, ret);
+		if (ret != 1)
+			return (free_all(&data, ret));
 		create_heat_map(&data);
-		get_coords(&data);
+		if (!get_coords(&data))
+			return (free_all(&data, 0));
 		reset_data(&data);
 	}
-	return (0);
+	return (free_all(&data, ret));
 }

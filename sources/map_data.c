@@ -36,9 +36,9 @@ int	check_map_size(t_filler *data, int ret)
 	int	j;
 
 	ret = get_next_line(0, &data->line);
-	if (ret < 0)
-		return (0);
-	if (ft_strnstr(data->line, "Plateau", 8))
+	if (ret != 1)
+		return (ret);
+	if (!ft_strncmp(data->line, "Plateau", 7))
 		return (0);
 	i = ft_strchr_place(data->line, ' ') + 1;
 	j = ft_strrchr_place(data->line, ' ') + 1;
@@ -47,8 +47,8 @@ int	check_map_size(t_filler *data, int ret)
 		data->mapsize_y = ft_atoi(&data->line[i]);
 		data->mapsize_x = ft_atoi(&data->line[j]);
 	}
-	if (ft_atoi(&data->line[i]) != data->mapsize_y ||
-		ft_atoi(&data->line[j]) != data->mapsize_x)
+	if (ft_atoi(&data->line[i]) != data->mapsize_y
+		|| ft_atoi(&data->line[j]) != data->mapsize_x)
 		return (0);
 	ft_strdel(&data->line);
 	if (!check_columns(data, ret))
@@ -58,15 +58,19 @@ int	check_map_size(t_filler *data, int ret)
 
 void	convert_to_int_map(t_filler *data, char *line, int i, int j)
 {
+	int	x;
+
+	x = 0;
 	while (line[j] != '0')
 	{
 		if (line[j] == '.')
-			data->map[i][j] = 0;
+			data->map[i][x] = 0;
 		else if (line[j] == data->boss_sign || line[j] == data->boss_sign_s)
-			data->map[i][j] = -1;
+			data->map[i][x] = -1;
 		else if (line[j] == data->enemy_sign || line[j] == data->enemy_sign_s)
-			data->map[i][j] = -2;
+			data->map[i][x] = -2;
 		j++;
+		x++;
 	}
 }
 
@@ -76,16 +80,16 @@ int	read_map(t_filler *data, int ret)
 	int	j;
 
 	i = 0;
-	while(i < data->mapsize_y)
+	while (i < data->mapsize_y)
 	{
 		ret = get_next_line(0, &data->line);
-		if (ret < 0)
-			return (0);
+		if (ret != 1)
+			return (ret);
 		j = ft_strchr_place(data->line, ' ') + 1;
 		convert_to_int_map(data, data->line, i, j);
 		ft_strdel(&data->line);
+		i++;
 	}
-	data->map[i] = NULL;
 	return (ret);
 }
 
@@ -94,9 +98,9 @@ int	get_map_and_piece(t_filler *data, int ret)
 	t_piece	*piece;
 
 	if (data->first_round == 0)
-		ret = !check_map_size(data, ret);
+		ret = check_map_size(data, ret);
 	if (ret != 1 || !read_map(data, ret))
-		return (0);
+		return (ret);
 	if (!read_piece_size(data, ret))
 		return (0);
 	piece = (t_piece *)malloc(sizeof(t_piece));

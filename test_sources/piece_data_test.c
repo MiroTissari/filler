@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "filter.h"
 
 int	init_piece(t_filler *data, t_piece *piece)
 {
@@ -37,7 +37,7 @@ int	init_piece(t_filler *data, t_piece *piece)
 		i++;
 		printf("\n");
 	}
-	piece->actual_size = 0;
+	piece->found = 0;
 	piece->temp_value = 0;
 	return (1);
 }
@@ -55,7 +55,6 @@ void	convert_to_int_piece(t_filler *data, char *line, t_piece *piece, int i)
 		else if (line[j] == '*')
 		{
 			piece->piece[i][j] = -3;
-			piece->actual_size++;
 		}
 		printf("%i ", piece->piece[i][j]);
 		j++;
@@ -66,27 +65,20 @@ int	read_piece(t_filler *data, t_piece *piece, int fd)
 {
 	int	i;
 	int	ret;
-//	char	*temp;
 
 	i = 0;
 	ret = 1;
-	//temp = NULL;
 	if (!init_piece(data, piece))
 		return (0);
 	printf("read_piece\n");
 	printf("line:%s\n", data->line);
 	while(i < data->piece_y && ret == 1)
 	{
-		printf("check:::%i\n", piece->piece[i][i]);
-		printf("check00000\n");
 		ret = get_next_line(fd, &data->line);
-		printf("check2121\n");
 		if (ret != 1)
 			return (0);
 		convert_to_int_piece(data, data->line, piece, i);
-		printf("\t\t\tpiece: %s\n", data->line);
-		//ft_strdel(&data->line);
-		printf("check\n");
+		ft_strdel(&data->line);
 		i++;
 	}
 	return (ret);
@@ -101,15 +93,14 @@ int	read_piece_size(t_filler *data, int fd)
 	printf("\npiece size\n");
 	ret = get_next_line(fd, &data->line);
 	if (ret != 1)
-		return (0);
+		return (ret);
 	if (ft_strncmp(data->line, "Piece", 5))
 		return (0);
 	i = ft_strchr_place(data->line, ' ') + 1;
 	j = ft_strrchr_place(data->line, ' ') + 1;
 	data->piece_y = ft_atoi(&data->line[i]);
 	data->piece_x = ft_atoi(&data->line[j]);
-	//ft_strdel(&data->line);
-	i = 0;
+	ft_strdel(&data->line);
 	printf("\tpiece size y: %i\n", data->piece_y);
 	printf("\tpiece size x: %i\n", data->piece_x);
 	return (ret);

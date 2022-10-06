@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "filter.h"
 #include <fcntl.h>
 
 void	init_t_filler(t_filler *data)
@@ -27,9 +27,9 @@ void	init_t_filler(t_filler *data)
 	data->mapsize_y = 0;
 	data->ret = 1;
 
-	data->target = -2;
+	data->target = data->enemy;
 	data->first_round = 1;
-	data->best_val = 500;
+	data->best_val = 1000000;
 	data->best_x = 0;
 	data->best_y = 0;
 
@@ -46,36 +46,48 @@ void	reset_data(t_filler *data)
 	data->line = NULL;
 	data->first_round = 0;
 	data->target = data->enemy;
-	data->best_val = 500;
+	data->best_val = 1000000;
 	data->best_x = 0;
 	data->best_y = 0;
-	i = 0;
-	while (i < data->piece_y)
+	if (data->piece)
 	{
-		free (data->piece->piece[i]);
-		data->piece->piece[i] = NULL;
-		i++;
+		i = 0;
+		while (data->piece->piece[i] && i < data->piece_y)
+		{
+			free (data->piece->piece[i]);
+			data->piece->piece[i] = NULL;
+			i++;
+		}
+		if (data->piece->piece)
+			free (data->piece->piece);
+		free(data->piece);
 	}
-	free(data->piece);
 	data->piece = NULL;
 	data->piece_x = 0;
 	data->piece_y = 0;
-	data->target = -2;
-	printf("reset_data\n");
+	printf("reset data\n");
 }
 
-void	free_all(t_filler *data)
+int	free_all(t_filler *data, int ret, int fd)
 {
 	int	i;
 
 	i = 0;
-	while (i < data->mapsize_y)
+	if (data->map)
 	{
-		free (data->map[i]);
-		data->map[i] = NULL;
-		i++;
+		while (i < data->mapsize_y && data->map[i])
+		{
+			free (data->map[i]);
+			data->map[i] = NULL;
+			i++;
+		}
+		free(data->map);
 	}
-	free(data->map);
+	close (fd);
+	printf("\n RET: %i\n", ret);
+	if (ret == 0)
+		return (0);
+	return (1);
 }
 
 int	make_grid(t_filler *data, int fd)
@@ -87,12 +99,15 @@ int	make_grid(t_filler *data, int fd)
 	printf("making grid\n");
 	if (!check_map_size(data, fd))
 		return (0);
-	data->map = (int **)malloc(sizeof(int *) * data->mapsize_y);//this
+	data->map = (int **)malloc(sizeof(int *) * data->mapsize_y);
+	if (!data->map)
+		return (0);
 	while (i < data->mapsize_y)
 	{
-		printf("\t\t\t\t");
 		j = 0;
 		data->map[i] = (int *)malloc(sizeof(int) * data->mapsize_x);
+		if (!data->map[i])
+			return(0);
 		while (j < data->mapsize_x)
 		{
 			data->map[i][j] = 0;
@@ -103,19 +118,16 @@ int	make_grid(t_filler *data, int fd)
 		i++;
 	}
 	printf("\n");
-	//data->map[i] = NULL;
 	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_filler	data;
-	int			ret;
 	int			fd;
 	int			i;
 	int			j;
 
-	ret = 1;
 	if (argc == 2)
 		fd = open (argv[1], O_RDONLY);
 	else
@@ -125,8 +137,9 @@ int	main(int argc, char **argv)
 		return (1);
 	while (data.ret == 1)
 	{
-		if (!get_map_and_piece(&data, fd))
-			return (1);
+		data.ret = get_map_and_piece(&data, fd);
+		if (data.ret != 1)
+			return (free_all(&data, data.ret, fd));
 		create_heat_map(&data);
 		i = 0;
 		while (i < data.mapsize_y)
@@ -140,10 +153,10 @@ int	main(int argc, char **argv)
 			i++;
 			printf("\n");
 		}
-		get_coords(&data);
+		if (!get_coords(&data))
+			return (free_all(&data, 0, fd));;
 		reset_data(&data);
+		system("leaks test_file");
 	}
-	close (fd);
-	free_all(&data);
-	return (0);
+	return (free_all(&data, data.ret, fd));
 }
