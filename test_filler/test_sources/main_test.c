@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:39:26 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/07 19:33:56 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/07 19:44:32 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int argc, char **argv)
 		if (!sorter(&data, ret))
 			return (free_all(&data, ret));
 		//ft_strdel(&data.line);
+		system("leaks test_file");
 	}
 	return (free_all(&data, ret));
 }

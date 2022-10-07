@@ -76,6 +76,7 @@ int	free_all(t_filler *data, int ret)
 		}
 		free(data->map);
 	}
+	system("leaks test_file");
 	close(data->fd);
 	if (ret == 0)
 		return (0);
