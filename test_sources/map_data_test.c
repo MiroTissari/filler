@@ -1,56 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_data.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/05 14:57:09 by mtissari          #+#    #+#             */
+/*   Updated: 2022/10/05 14:57:11 by mtissari         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "filter.h"
 
-int	check_columns(t_filler *data, int fd)
-{
-	int	i;
-	int	ret;
-
-	i = 0;
-	ret = get_next_line(fd, &data->line);
-	if (ret < 0)
-		return (0);
-	while (data->line[i] == ' ')
-		i++;
-	while (ft_isdigit(data->line[i]))
-		i++;
-	printf("column line:%s\n", data->line);
-	ft_strdel(&data->line);
-	if (i != data->mapsize_x + 4)
-		return (0);
-	return (ret);
-}
-
-int	check_map_size(t_filler *data, int fd)
+int	make_grid(t_filler *data)
 {
 	int	i;
 	int	j;
-	int	ret;
 
-	printf("checking map size:\n");
-	ret = get_next_line(fd, &data->line);
-	if (ret != 1)
-		return(ret);
-	printf("ret: %i\n", ret);
-	printf("line: %s\n", data->line);
-	if (ft_strncmp(data->line, "Plateau", 7))
+	i = 0;
+	data->map = (int **)malloc(sizeof(int *) * data->mapsize_y);
+	if (!data->map)
 		return (0);
-	i = ft_strchr_place(data->line, ' ') + 1;
-	j = ft_strrchr_place(data->line, ' ') + 1;
-	if (data->mapsize_y == 0 && data->mapsize_x == 0)
+	while (i < data->mapsize_y)
 	{
-		data->mapsize_y = ft_atoi(&data->line[i]);
-		data->mapsize_x = ft_atoi(&data->line[j]);
+		j = 0;
+		data->map[i] = (int *)malloc(sizeof(int) * data->mapsize_x);
+		if (!data->map[i])
+			return (0);
+		while (j < data->mapsize_x)
+		{
+			data->map[i][j] = 0;
+			j++;
+		}
+		i++;
 	}
-	if (ft_atoi(&data->line[i]) != data->mapsize_y
-		|| ft_atoi(&data->line[j]) != data->mapsize_x)
-		return (0);
-	ft_strdel(&data->line);
-	if (!check_columns(data, fd))
-		return (0);
-	printf("map size y: %i\n", data->mapsize_y);
-	printf("map size x: %i\n", data->mapsize_x);
-	return (ret);
+	return (1);
 }
 
 void	convert_to_int_map(t_filler *data, char *line, int i, int j)
@@ -58,7 +42,7 @@ void	convert_to_int_map(t_filler *data, char *line, int i, int j)
 	int	x;
 
 	x = 0;
-	while (line[j] != '\0')
+	while (line[j] != '0')
 	{
 		if (line[j] == '.')
 			data->map[i][x] = 0;
@@ -66,23 +50,20 @@ void	convert_to_int_map(t_filler *data, char *line, int i, int j)
 			data->map[i][x] = -1;
 		else if (line[j] == data->enemy_sign || line[j] == data->enemy_sign_s)
 			data->map[i][x] = -2;
-		printf("%i", data->map[i][x]);
 		j++;
 		x++;
 	}
-	printf("\n");
 }
 
-int	read_map(t_filler *data, int fd)
+int	read_map(t_filler *data, int ret)
 {
 	int	i;
 	int	j;
-	int	ret;
 
 	i = 0;
-	while(i < data->mapsize_y)
+	while (i < data->mapsize_y || ft_strncmp(data->line, "Piece", 4))
 	{
-		ret = get_next_line(fd, &data->line);
+		ret = get_next_line(0, &data->line);
 		if (ret != 1)
 			return (ret);
 		j = ft_strchr_place(data->line, ' ') + 1;
@@ -93,27 +74,35 @@ int	read_map(t_filler *data, int fd)
 	return (ret);
 }
 
-int	get_map_and_piece(t_filler *data, int fd)
+int	skip_lines(t_filler *data)
 {
-	t_piece	*piece;
-	int		ret;
+	int	ret;
 
-	ret = 1;
-	printf("get_map_and_piece1\n");
-	if (data->first_round == 0)
-		ret = check_map_size(data, fd);
-	printf("get_map_and_piece2\n");
-	if (ret != 1 || read_map(data, fd) != 1)
-		return (ret);
-	printf("get_map_and_piece3\n");
-	if (!read_piece_size(data, fd))
+	ret = get_next_line(0, &data->line);
+	if (ret != 1)
 		return (0);
-	printf("get_map_and_piece4\n");
-	piece = (t_piece *)malloc(sizeof(t_piece));
-	printf("get_map_and_piece5\n");
-	if (!read_piece(data, piece, fd))
+	if (!ft_strncmp(data->line, "000 ", 4))
+		return (1);
+	else
+		ft_strdel(&data->line);
+	skip_lines(data);
+	return (0);
+}
+
+int	get_map(t_filler *data)
+{
+	int	ret;
+
+	printf("\tget map\n");
+	if (data->mapsize_y == 0 && data->mapsize_x == 0)
+	{
+		data->mapsize_y = ft_atoi(ft_strchr(data->line, ' ') + 1);
+		data->mapsize_x = ft_atoi(ft_strrchr(data->line, ' ') + 1);
+		ret = make_grid(data);
+	}
+	ft_strdel(&data->line);
+	if (ret != 1 || skip_lines(data))
 		return (0);
-	printf("get_map_and_piece6\n");
-	data->piece = piece;
+	ret = read_map(data, ret);
 	return (ret);
 }

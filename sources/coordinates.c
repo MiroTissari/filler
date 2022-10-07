@@ -20,7 +20,7 @@ int	print_coords(t_filler *data)
 	ft_putchar('\n');
 	if (data->piece->found == 0)
 		return (0);
-	return (1);
+	return (reset_data(data));
 }
 
 void	save_value(t_filler *data, int i, int j)

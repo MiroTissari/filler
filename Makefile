@@ -13,10 +13,11 @@
 .PHONY := all re clean fclean make
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
-FILES := coordinates.c heat_map.c main.c map_data.c piece_data.c player_data.c
+FILES := coordinates.c heat_map.c main.c map_data.c piece_data.c player_data.c \
+		init.c
 O_FILES := $(FILES:.c=.o)
 
-T_FILES := coordinates_test.c heat_map_test.c main_test.c map_data_test.c piece_data_test.c player_data_test.c
+T_FILES := init_test.c coordinates_test.c heat_map_test.c main_test.c map_data_test.c piece_data_test.c player_data_test.c
 TEST_OBJECT_FILES := $(T_FILES:.c=.o)
 
 INCLUDES := -I includes/ -I libft/

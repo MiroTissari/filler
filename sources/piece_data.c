@@ -56,14 +56,14 @@ void	convert_to_int_piece(t_filler *data, char *line, t_piece *piece, int i)
 	}
 }
 
-int	read_piece(t_filler *data, t_piece *piece, int ret)
+int	read_piece(t_filler *data, t_piece *piece)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
-	if (!init_piece(data, piece))
-		return (0);
-	while (i < data->piece_y)
+	
+	while (i < data->piece_y && ret == 1)
 	{
 		ret = get_next_line(0, &data->line);
 		if (ret != 1)
@@ -72,23 +72,21 @@ int	read_piece(t_filler *data, t_piece *piece, int ret)
 		ft_strdel(&data->line);
 		i++;
 	}
-	return (ret);
+	return (1);
 }
 
-int	read_piece_size(t_filler *data, int ret)
+int	get_piece(t_filler *data)
 {
-	int	i;
-	int	j;
+	t_piece	*piece;
 
-	ret = get_next_line(0, &data->line);
-	if (ret != 1)
-		return (ret);
-	if (!ft_strncmp(data->line, "Piece", 5))
-		return (0);
-	i = ft_strchr_place(data->line, ' ') + 1;
-	j = ft_strrchr_place(data->line, ' ') + 1;
-	data->piece_y = ft_atoi(&data->line[i]);
-	data->piece_x = ft_atoi(&data->line[j]);
+	data->piece_y = ft_atoi(ft_strchr(data->line, ' ') + 1);
+	data->piece_x = ft_atoi(ft_strrchr(data->line, ' ') + 1);
+	piece = (t_piece *)malloc(sizeof(t_piece));
+	data->piece = piece;
 	ft_strdel(&data->line);
-	return (ret);
+	if (!init_piece(data, piece))
+		return (0);
+	if (!read_piece(data, piece))
+		return (0);
+	return (1);
 }

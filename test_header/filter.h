@@ -26,7 +26,7 @@ typedef struct s_filler
 	int			enemy_sign_s;
 	int			first_round;
 	int			target;
-	int			ret;
+	int			fd;
 
 	int			**map;
 	char		*line;
@@ -48,14 +48,18 @@ typedef struct s_piece
 	int			temp_value;
 }				t_piece;
 
+int		free_all(t_filler *data, int ret);
+int		reset_data(t_filler *data);
+void	init_t_filler(t_filler *data);
+
+int		get_players_test(t_filler *data);
+
+int		get_map(t_filler *data);
+
+int		get_piece(t_filler *data);
+
 void	create_heat_map(t_filler *data);
 
 int		get_coords(t_filler *data);
-
-int		get_players(t_filler *data, int fd);
-int		get_map_and_piece(t_filler *data, int fd);
-int		check_map_size(t_filler *data, int fd);
-int		read_piece_size(t_filler *data, int fd);
-int		read_piece(t_filler *data, t_piece *piece, int fd);
 
 #endif

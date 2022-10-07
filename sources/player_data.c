@@ -12,29 +12,23 @@
 
 #include "filler.h"
 
-int	get_players(t_filler *data, int ret)
+int	get_players(t_filler *data)
 {
-	char	**temp;
-
-	ret = get_next_line(0, &data->line);
-	if (ret != 1)
-		return (ret);
-	temp = ft_strsplit(data->line, ' ');
-	ft_strdel(&data->line);
-	if (ft_strcmp(temp[0], "$$$") || ft_strcmp(temp[1], "exec"))
-		return (0);
-	if (!ft_strcmp(temp[2], "p1"))
+	if (ft_strstr(data->line, "p1"))
 	{
 		data->boss_sign = 'O';
+		data->boss_sign_s = 'o';
 		data->enemy_sign = 'X';
+		data->enemy_sign_s = 'x';
 	}
-	else if (!ft_strcmp(temp[2], "p2"))
+	else if (ft_strstr(data->line, "p2"))
 	{
 		data->boss_sign = 'X';
+		data->boss_sign_s = 'x';
 		data->enemy_sign = 'O';
+		data->enemy_sign_s = 'o';
 	}
 	else
 		return (0);
-	ft_2d_free(temp);
-	return (ret);
+	return (1);
 }

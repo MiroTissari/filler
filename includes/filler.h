@@ -50,13 +50,15 @@ typedef struct s_piece
 
 int		main(void);
 
-int		get_players(t_filler *data, int ret);
+int		free_all(t_filler *data, int ret);
+int		reset_data(t_filler *data);
+void	init_t_filler(t_filler *data);
 
-int		get_map_and_piece(t_filler *data, int ret);
-int		check_map_size(t_filler *data, int ret);
+int		get_players(t_filler *data);
 
-int		read_piece_size(t_filler *data, int ret);
-int		read_piece(t_filler *data, t_piece *piece, int ret);
+int		get_map(t_filler *data);
+
+int		get_piece(t_filler *data);
 
 void	create_heat_map(t_filler *data);
 
