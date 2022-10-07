@@ -6,7 +6,7 @@
 #    By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 17:38:03 by mtissari          #+#    #+#              #
-#    Updated: 2022/10/05 17:49:29 by mtissari         ###   ########.fr        #
+#    Updated: 2022/10/07 19:31:32 by mtissari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ FILES := coordinates.c heat_map.c main.c map_data.c piece_data.c player_data.c \
 		init.c
 O_FILES := $(FILES:.c=.o)
 
-T_FILES := init_test.c coordinates_test.c heat_map_test.c main_test.c map_data_test.c piece_data_test.c player_data_test.c
-TEST_OBJECT_FILES := $(T_FILES:.c=.o)
+#T_FILES := init_test.c coordinates_test.c heat_map_test.c main_test.c map_data_test.c piece_data_test.c player_data_test.c
+#TEST_OBJECT_FILES := $(T_FILES:.c=.o)
 
 INCLUDES := -I includes/ -I libft/
 LIBFT := libft/
@@ -26,7 +26,7 @@ NAME := mtissari.filler
 S_PATH := sources/
 SOURCES := $(addprefix  $(S_PATH), $(FILES))
 
-TEST_SOURCES := $(addprefix  test_sources/, $(T_FILES))
+#TEST_SOURCES := $(addprefix  test_sources/, $(T_FILES))
 
 # COLORS
 
@@ -39,19 +39,19 @@ all: $(NAME)
 $(NAME): $(O_FILES)
 	$(CC) $(CFLAGS) $(INCLUDES) $(O_FILES) -L$(LIBFT) -lft  -o $(NAME)
 
-test: $(TEST_OBJECT_FILES)
-	$(CC) $(CFLAGS) -g -I test_header/ -I libft/ $(TEST_OBJECT_FILES) -L$(LIBFT) -lft -o test_file
+#test: $(TEST_OBJECT_FILES)
+#	$(CC) $(CFLAGS) -g -I test_header/ -I libft/ $(TEST_OBJECT_FILES) -L$(LIBFT) -lft -o test_file
 
-$(TEST_OBJECT_FILES):
-	@echo "$(NAME): $(GREEN)Creating $(LIBFT) for test...$(RESET)"
-	make re -sC $(LIBFT)
-	@echo "$(NAME): $(GREEN)Creating Test_file...$(RESET)"
-	$(CC) $(CFLAGS) -c $(TEST_SOURCES) -I test_header/ -I libft/ -L$(LIBFT) -lft
+#$(TEST_OBJECT_FILES):
+#	@echo "$(NAME): $(GREEN)Creating $(LIBFT) for test...$(RESET)"
+#	make re -sC $(LIBFT)
+#	@echo "$(NAME): $(GREEN)Creating Test_file...$(RESET)"
+#	$(CC) $(CFLAGS) -c $(TEST_SOURCES) -I test_header/ -I libft/
 
 $(O_FILES):
 	@echo "$(NAME): $(GREEN)Creating $(LIBFT)...$(RESET)"
 	@make andclean -sC $(LIBFT)
-	$(CC) $(CFLAGS) -c $(SOURCES) $(INCLUDES)  -L$(LIBFT) -lft
+	$(CC) $(CFLAGS) -c $(SOURCES) $(INCLUDES)
 
 #libft:
 #	@echo "$(NAME): $(GREEN)Creating $(LIBFT)...$(RESET)"
@@ -73,4 +73,5 @@ fclean: clean
 re: fclean all
 
 # To launch the game with given players:
+#./filler_vm -f maps/map00 -p1 players/abanlin.filler -p2 ../mtissari.filler
 #./resources/filler_vm -f resources/maps/map00 -p1 resources/players/abanlin.filler -p2 resources/players/carli.filler

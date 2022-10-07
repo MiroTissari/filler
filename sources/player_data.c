@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:34 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/05 14:57:36 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/07 19:04:47 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int	get_players(t_filler *data)
 	}
 	else
 		return (0);
+	ft_strdel(&data->line);
 	return (1);
 }

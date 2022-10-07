@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/07 18:27:56 by mtissari          #+#    #+#             */
+/*   Updated: 2022/10/07 19:25:10 by mtissari         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "filler.h"
 
@@ -13,41 +24,39 @@ void	init_t_filler(t_filler *data)
 	data->line = NULL;
 	data->mapsize_x = 0;
 	data->mapsize_y = 0;
-
 	data->target = data->enemy;
 	data->first_round = 1;
 	data->best_val = 1000000;
 	data->best_x = 0;
 	data->best_y = 0;
-
-	data->piece = NULL;
+//	data->piece = NULL;
 	data->piece_x = 0;
 	data->piece_y = 0;
 }
 
-int	reset_data(t_filler *data)
+int	reset_data(t_filler *data, t_piece *piece)
 {
 	int	i;
 
-	data->line = NULL;
+	//data->line = NULL;
 	data->first_round = 0;
 	data->target = data->enemy;
 	data->best_val = 1000000;
 	data->best_x = 0;
 	data->best_y = 0;
-	if (data->piece)
+	if (piece)
 	{
 		i = 0;
-		while (data->piece->piece[i] && i < data->piece_y)
+		while (i < data->piece_y)
 		{
-			free (data->piece->piece[i]);
-			data->piece->piece[i] = NULL;
+			free (piece->piece[i]);
+			piece->piece[i] = NULL;
 			i++;
 		}
-		if (data->piece->piece)
-			free (data->piece->piece);
-		free(data->piece);
-		data->piece = NULL;
+		if (piece->piece)
+			free (piece->piece);
+		free(piece);
+		//data->piece = NULL;
 	}
 	data->piece_x = 0;
 	data->piece_y = 0;
@@ -61,7 +70,7 @@ int	free_all(t_filler *data, int ret)
 	i = 0;
 	if (data->map)
 	{
-		while (i < data->mapsize_y && data->map[i])
+		while (i < data->mapsize_y)
 		{
 			free (data->map[i]);
 			data->map[i] = NULL;

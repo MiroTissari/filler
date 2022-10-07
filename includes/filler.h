@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:47 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/05 18:00:01 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/07 19:24:38 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_filler
 	int				best_x;
 	int				best_y;
 
-	struct s_piece	*piece;
+//	struct s_piece	*piece;
 	int				piece_x;
 	int				piece_y;
 }					t_filler;
@@ -51,17 +51,17 @@ typedef struct s_piece
 int		main(void);
 
 int		free_all(t_filler *data, int ret);
-int		reset_data(t_filler *data);
+int		reset_data(t_filler *data, t_piece *piece);
 void	init_t_filler(t_filler *data);
 
 int		get_players(t_filler *data);
 
 int		get_map(t_filler *data);
 
-int		get_piece(t_filler *data);
+int		get_piece(t_filler *data, t_piece *piece);
 
 void	create_heat_map(t_filler *data);
 
-int		get_coords(t_filler *data);
+int		get_coords(t_filler *data, t_piece *piece);
 
 #endif

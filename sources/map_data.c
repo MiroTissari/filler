@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:09 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/05 14:57:11 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/07 19:09:33 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,15 @@ int	read_map(t_filler *data, int ret)
 	int	j;
 
 	i = 0;
-	while (i < data->mapsize_y || ft_strncmp(data->line, "Piece", 4))
+	j = 4;
+	convert_to_int_map(data, data->line, i, j);
+	ft_strdel(&data->line);
+	i++;
+	while (i < data->mapsize_y)
 	{
 		ret = get_next_line(0, &data->line);
 		if (ret != 1)
 			return (ret);
-		j = ft_strchr_place(data->line, ' ') + 1;
 		convert_to_int_map(data, data->line, i, j);
 		ft_strdel(&data->line);
 		i++;
@@ -93,6 +96,7 @@ int	get_map(t_filler *data)
 {
 	int	ret;
 
+	ret = 1;
 	if (data->mapsize_y == 0 && data->mapsize_x == 0)
 	{
 		data->mapsize_y = ft_atoi(ft_strchr(data->line, ' ') + 1);
