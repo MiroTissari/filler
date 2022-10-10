@@ -42,7 +42,7 @@ void	convert_to_int_map(t_filler *data, char *line, int i, int j)
 	int	x;
 
 	x = 0;
-	while (line[j] != '0')
+	while (x < data->mapsize_x)
 	{
 		if (line[j] == '.')
 			data->map[i][x] = 0;

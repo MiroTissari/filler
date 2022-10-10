@@ -76,18 +76,14 @@ int	read_piece(t_filler *data, t_piece *piece)
 
 int	get_piece(t_filler *data, t_piece *piece)
 {
-	//t_piece	*piece;
-
 	data->piece_y = ft_atoi(ft_strchr(data->line, ' ') + 1);
 	data->piece_x = ft_atoi(ft_strrchr(data->line, ' ') + 1);
-	//piece = (t_piece *)malloc(sizeof(t_piece));
 	ft_strdel(&data->line);
 	if (!init_piece(data, piece))
 	{
 		reset_data(data, piece);
 		return (0);
 	}
-	//data->piece = piece;
 	if (!read_piece(data, piece))
 	{
 		reset_data(data, piece);

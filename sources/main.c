@@ -29,6 +29,8 @@ int	sorter(t_filler *data, int ret)
 	else if (!ft_strncmp(data->line, "Piece", 5))
 	{
 		piece = (t_piece *)malloc(sizeof(t_piece));
+		if (!piece)
+			return (0);
 		if (!get_piece(data, piece))
 			return (0);
 		if (!get_coords(data, piece))

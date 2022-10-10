@@ -16,13 +16,13 @@ void	set_heat_value(t_filler *data, int i, int j)
 {
 	if (data->target == -2)
 	{
-		if (data->map[i][j + 1] == 0)
+		if ((j + 1) < data->mapsize_x && data->map[i][j + 1] == 0)
 			data->map[i][j + 1] = 1;
-		if (data->map[i][j - 1] == 0)
+		if ((j - 1) >= 0 && data->map[i][j - 1] == 0)
 			data->map[i][j - 1] = 1;
-		if (data->map[i + 1][j] == 0)
+		if ((i + 1) < data->mapsize_y && data->map[i + 1][j] == 0)
 			data->map[i + 1][j] = 1;
-		if (data->map[i - 1][j] == 0)
+		if ((i - 1) >= 0 && data->map[i - 1][j] == 0)
 			data->map[i - 1][j] = 1;
 		return ;
 	}
