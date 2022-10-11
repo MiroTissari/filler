@@ -6,11 +6,11 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:09 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/07 20:02:17 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:21:07 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "../includes/filler.h"
 
 int	make_grid(t_filler *data)
 {
@@ -47,9 +47,9 @@ void	convert_to_int_map(t_filler *data, char *line, int i, int j)
 		if (line[j] == '.')
 			data->map[i][x] = 0;
 		else if (line[j] == data->boss_sign || line[j] == data->boss_sign_s)
-			data->map[i][x] = -1;
+			data->map[i][x] = data->boss;
 		else if (line[j] == data->enemy_sign || line[j] == data->enemy_sign_s)
-			data->map[i][x] = -2;
+			data->map[i][x] = data->enemy;
 		j++;
 		x++;
 	}
@@ -109,3 +109,9 @@ int	get_map(t_filler *data)
 	ret = read_map(data, ret);
 	return (ret);
 }
+
+/*
+	The Grid gets made just once and we use that until the end of the program.
+	We use skip_lines function to find the starting point of the map,
+	which we then convert to the grid while reading it.
+*/

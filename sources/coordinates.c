@@ -6,11 +6,11 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:56:50 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/07 19:47:54 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:29:17 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "../includes/filler.h"
 
 int	print_coords(t_filler *data, t_piece *piece)
 {
@@ -18,10 +18,10 @@ int	print_coords(t_filler *data, t_piece *piece)
 	ft_putchar(' ');
 	ft_putnbr(data->best_x);
 	ft_putchar('\n');
-	if (piece->found == 0)
+	if (piece->found == END)
 	{
 		reset_data(data, piece);
-		return (0);
+		return (END);
 	}
 	return (reset_data(data, piece));
 }
@@ -99,3 +99,11 @@ int	get_coords(t_filler *data, t_piece *piece)
 	}
 	return (print_coords(data, piece));
 }
+
+/*
+	Here we go once through the heat map fitting the piece in every cell.
+	The best coordinates get saved in the struct
+	and then printed on standard output.
+	If there is no cell the piece fits in, we print 0 0 and that ends the game
+	for us.
+*/

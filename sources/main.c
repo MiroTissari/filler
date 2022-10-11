@@ -6,18 +6,16 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:39:26 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/07 19:16:33 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:10:38 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "../includes/filler.h"
 
-int	sorter(t_filler *data, int ret)
+int	sorter(t_filler *data)
 {
 	t_piece	*piece;
 
-	if (ret != 1)
-		return (0);
 	if (!ft_strncmp(data->line, "$$$ exec", 8))
 		return (get_players(data));
 	else if (!ft_strncmp(data->line, "Plateau", 7))
@@ -42,14 +40,12 @@ int	sorter(t_filler *data, int ret)
 int	main(void)
 {
 	t_filler	data;
-	int			ret;
 
-	ret = 1;
 	init_t_filler(&data);
 	while (get_next_line(0, &data.line))
 	{
-		if (!sorter(&data, ret))
-			return (free_all(&data, ret));
+		if (!sorter(&data))
+			return (free_all(&data));
 	}
-	return (free_all(&data, ret));
+	return (free_all(&data));
 }

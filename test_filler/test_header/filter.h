@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:47 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/07 14:46:30 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:08:06 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_filler
 	int			enemy_sign_s;
 	int			first_round;
 	int			target;
+	int			target_found;
 	int			fd;
 
 	int			**map;

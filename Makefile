@@ -6,7 +6,7 @@
 #    By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 17:38:03 by mtissari          #+#    #+#              #
-#    Updated: 2022/10/07 19:31:32 by mtissari         ###   ########.fr        #
+#    Updated: 2022/10/11 14:24:11 by mtissari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ $(LIB):
 	@make re -sC $(LIBFT)
 
 %.o: $(S_PATH)%.c
-	@$(CC) $(CFLAGS) -c $(INCLUDES) $(LINKER) $< -o $@
+	@$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
 	@echo "$(GREEN)Created $(@)!$(RESET)"
 
 clean:

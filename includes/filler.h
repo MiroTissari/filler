@@ -6,15 +6,16 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:47 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/07 20:02:42 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:08:06 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLER_H
 # define FILLER_H
 
-# include "../libft/libft.h"	// DO THE HIVE HEADER IN STRCH_PLACE AND THE OTHER ONE
-# include <stdio.h>				// TAKE THIS OUT
+# include "../libft/libft.h"
+
+# define END		0
 
 typedef struct s_filler
 {
@@ -24,9 +25,8 @@ typedef struct s_filler
 	int				enemy_sign;
 	int				boss_sign_s;
 	int				enemy_sign_s;
-	int				first_round;
 	int				target;
-	int				ret;
+	int				target_found;
 
 	int				**map;
 	char			*line;
@@ -35,8 +35,6 @@ typedef struct s_filler
 	int				best_val;
 	int				best_x;
 	int				best_y;
-
-//	struct s_piece	*piece;
 	int				piece_x;
 	int				piece_y;
 }					t_filler;
@@ -50,7 +48,7 @@ typedef struct s_piece
 
 int		main(void);
 
-int		free_all(t_filler *data, int ret);
+int		free_all(t_filler *data);
 int		reset_data(t_filler *data, t_piece *piece);
 void	init_t_filler(t_filler *data);
 

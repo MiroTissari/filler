@@ -6,11 +6,11 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:27:56 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/07 20:02:28 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:11:30 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "../includes/filler.h"
 
 void	init_t_filler(t_filler *data)
 {
@@ -25,7 +25,6 @@ void	init_t_filler(t_filler *data)
 	data->mapsize_x = 0;
 	data->mapsize_y = 0;
 	data->target = data->enemy;
-	data->first_round = 1;
 	data->best_val = 1000000;
 	data->best_x = 0;
 	data->best_y = 0;
@@ -37,7 +36,6 @@ int	reset_data(t_filler *data, t_piece *piece)
 {
 	int	i;
 
-	data->first_round = 0;
 	data->target = data->enemy;
 	data->best_val = 1000000;
 	data->best_x = 0;
@@ -62,7 +60,7 @@ int	reset_data(t_filler *data, t_piece *piece)
 	return (1);
 }
 
-int	free_all(t_filler *data, int ret)
+int	free_all(t_filler *data)
 {
 	int	i;
 
@@ -77,7 +75,5 @@ int	free_all(t_filler *data, int ret)
 		}
 		free(data->map);
 	}
-	if (ret == 0)
-		return (0);
-	return (1);
+	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:30 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/07 20:02:31 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:26:25 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "../includes/filler.h"
 
 int	init_piece(t_filler *data, t_piece *piece)
 {
@@ -91,3 +91,9 @@ int	get_piece(t_filler *data, t_piece *piece)
 	}
 	return (1);
 }
+
+/*
+	We make each round a new piece and convert it straight away to ints,
+	where 0 stands for an empty space, or '.',
+	and -3 stands '*', which means its part of the actual shape of the piece.
+*/
