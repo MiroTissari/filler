@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:47 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/11 18:08:06 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:53:57 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_filler
 	int				boss_sign_s;
 	int				enemy_sign_s;
 	int				target;
-	int				target_found;
 
 	int				**map;
 	char			*line;
@@ -50,6 +49,7 @@ int		main(void);
 
 int		free_all(t_filler *data);
 int		reset_data(t_filler *data, t_piece *piece);
+int		init_piece(t_filler *data, t_piece *piece);
 void	init_t_filler(t_filler *data);
 
 int		get_players(t_filler *data);

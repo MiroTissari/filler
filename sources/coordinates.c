@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:56:50 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/11 18:29:17 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:25:10 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	print_coords(t_filler *data, t_piece *piece)
 {
-	ft_putnbr(data->best_y);
-	ft_putchar(' ');
-	ft_putnbr(data->best_x);
-	ft_putchar('\n');
-	if (piece->found == END)
+	if (piece->found == 0)
 	{
 		reset_data(data, piece);
 		return (END);
 	}
+	ft_putnbr(data->best_y);
+	ft_putchar(' ');
+	ft_putnbr(data->best_x);
+	ft_putchar('\n');
 	return (reset_data(data, piece));
 }
 

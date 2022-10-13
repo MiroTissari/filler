@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:39:26 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/11 18:10:38 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:58:20 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ int	sorter(t_filler *data)
 	else if (!ft_strncmp(data->line, "Plateau", 7))
 	{
 		if (!get_map(data))
-			return (0);
+			return (END);
 		create_heat_map(data);
 	}
 	else if (!ft_strncmp(data->line, "Piece", 5))
 	{
 		piece = (t_piece *)malloc(sizeof(t_piece));
 		if (!piece)
-			return (0);
+			return (END);
 		if (!get_piece(data, piece))
-			return (0);
+			return (END);
 		if (!get_coords(data, piece))
-			return (0);
+			return (END);
 	}
 	return (1);
 }

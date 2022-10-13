@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:34 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/11 17:14:24 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:57:55 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_players(t_filler *data)
 		data->enemy_sign_s = 'o';
 	}
 	else
-		return (0);
+		return (END);
 	ft_strdel(&data->line);
 	return (1);
 }

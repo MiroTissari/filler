@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:09 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/11 18:21:07 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:56:56 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	make_grid(t_filler *data)
 	i = 0;
 	data->map = (int **)malloc(sizeof(int *) * data->mapsize_y);
 	if (!data->map)
-		return (0);
+		return (END);
 	while (i < data->mapsize_y)
 	{
 		j = 0;
 		data->map[i] = (int *)malloc(sizeof(int) * data->mapsize_x);
 		if (!data->map[i])
-			return (0);
+			return (END);
 		while (j < data->mapsize_x)
 		{
 			data->map[i][j] = 0;
@@ -69,7 +69,7 @@ int	read_map(t_filler *data, int ret)
 	{
 		ret = get_next_line(0, &data->line);
 		if (ret != 1)
-			return (ret);
+			return (END);
 		convert_to_int_map(data, data->line, i, j);
 		ft_strdel(&data->line);
 		i++;
@@ -83,7 +83,7 @@ int	skip_lines(t_filler *data)
 
 	ret = get_next_line(0, &data->line);
 	if (ret != 1)
-		return (0);
+		return (END);
 	if (!ft_strncmp(data->line, "000 ", 4))
 		return (1);
 	else
@@ -105,7 +105,7 @@ int	get_map(t_filler *data)
 	}
 	ft_strdel(&data->line);
 	if (ret != 1 || skip_lines(data))
-		return (0);
+		return (END);
 	ret = read_map(data, ret);
 	return (ret);
 }

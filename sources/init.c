@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:27:56 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/11 18:11:30 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:25:43 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,33 @@ void	init_t_filler(t_filler *data)
 	data->best_y = 0;
 	data->piece_x = 0;
 	data->piece_y = 0;
+}
+
+int	init_piece(t_filler *data, t_piece *piece)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	piece->piece = (int **)malloc(sizeof(int *) * data->piece_y);
+	if (!piece->piece)
+		return (0);
+	while (i < data->piece_y)
+	{
+		piece->piece[i] = (int *)malloc(sizeof(int) * data->piece_x);
+		if (!piece->piece[i])
+			return (0);
+		j = 0;
+		while (j < data->piece_x)
+		{
+			piece->piece[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	piece->found = 0;
+	piece->temp_value = 0;
+	return (1);
 }
 
 int	reset_data(t_filler *data, t_piece *piece)
@@ -75,5 +102,9 @@ int	free_all(t_filler *data)
 		}
 		free(data->map);
 	}
-	return (0);
+	ft_putnbr(0);
+	ft_putchar(' ');
+	ft_putnbr(0);
+	ft_putchar('\n');
+	return (END);
 }

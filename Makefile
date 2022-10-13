@@ -6,7 +6,7 @@
 #    By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 17:38:03 by mtissari          #+#    #+#              #
-#    Updated: 2022/10/11 14:24:11 by mtissari         ###   ########.fr        #
+#    Updated: 2022/10/13 14:48:02 by mtissari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,37 +26,38 @@ SOURCES := $(addprefix $(S_PATH), $(FILES))
 
 # COLORS
 
-PURPLE := \033[1;95m
+BLUEB :=  \033[1;34m
+PURPLEB := \033[1;95m
 GREEN := \033[0;32m
 RED := \033[0;31m
-YELLOW := \033[1;93m
+YELLOW := \033[0;93m
+YELLOWB := \033[1;93m
 RESET := \033[0m
 
 all: $(NAME)
 
 $(NAME): $(LIB) $(O_FILES)
 	@$(CC) $(CFLAGS) $(INCLUDES) $(O_FILES) $(LINKER) -o $(NAME)
-	@echo "$(GREEN)The executable: $(PURPLE)"$(NAME)"$(GREEN) created!$(RESET)"
+	@echo "$(GREEN)The executable: $(PURPLEB)$(NAME)$(GREEN) created!$(RESET)"
 
 $(LIB):
-	@echo "$(YELLOW)Creating $(LIB)...$(RESET)"
+	@echo "$(YELLOWB)Creating $(LIB)...$(RESET)"
 	@make re -sC $(LIBFT)
 
 %.o: $(S_PATH)%.c
 	@$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
-	@echo "$(GREEN)Created $(@)!$(RESET)"
+	@echo "$(GREEN)Created $(BLUEB)$(@)$(RESET)"
 
 clean:
-	@echo "$(RED)deleting object files...$(RESET)"
 	@rm -f $(O_FILES)
 	@make -sC $(LIBFT) clean
-	@echo "$(GREEN)Object files deleted$(RESET)"
+	@echo "$(YELLOWB)Libft$(YELLOW) cleaned$(RESET)"
+	@echo "$(BLUEB)Object files$(RED) deleted$(RESET)"
 
 fclean: clean
-	@echo "$(RED)Deleting the executable...$(RESET)"
 	@rm -f $(NAME)
 	@make -sC $(LIBFT) fclean
-	@echo "$(GREEN)$(PURPLE)$(NAME) $(GREEN)deleted$(RESET)"
+	@echo "$(GREEN)$(PURPLEB)$(NAME) $(RED)deleted$(RESET)"
 
 re: fclean all
 

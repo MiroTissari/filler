@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:01 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/11 18:16:19 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:52:57 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ void	create_heat_map(t_filler *data)
 {
 	int	i;
 	int	j;
+	int	target_found;
 
 	i = 0;
-	data->target_found = 0;
+	target_found = 0;
 	while (i < data->mapsize_y)
 	{
 		j = 0;
@@ -76,7 +77,7 @@ void	create_heat_map(t_filler *data)
 		{
 			if (data->map[i][j] == data->target)
 			{
-				data->target_found = set_heat_value(data, i, j);
+				target_found = set_heat_value(data, i, j);
 			}
 			j++;
 		}
@@ -85,7 +86,7 @@ void	create_heat_map(t_filler *data)
 	if (data->target == data->enemy)
 		data->target = 0;
 	data->target++;
-	if (data->target_found == 1)
+	if (target_found == 1)
 		create_heat_map(data);
 	check_for_empties(data);
 }
