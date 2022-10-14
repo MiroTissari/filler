@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:30 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/13 14:57:38 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/14 18:34:21 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	convert_to_int_piece(t_filler *data, char *line, t_piece *piece, int i)
 	int	j;
 
 	j = 0;
-	while (line[j] != '\0' && j < data->piece_x)
+	while (j < data->piece_x)
 	{
 		if (line[j] == '.')
 			piece->piece[i][j] = 0;
@@ -25,6 +25,8 @@ void	convert_to_int_piece(t_filler *data, char *line, t_piece *piece, int i)
 		{
 			piece->piece[i][j] = -3;
 		}
+		else
+			data->error = 1;
 		j++;
 	}
 }
@@ -52,15 +54,17 @@ int	get_piece(t_filler *data, t_piece *piece)
 	data->piece_y = ft_atoi(ft_strchr(data->line, ' ') + 1);
 	data->piece_x = ft_atoi(ft_strrchr(data->line, ' ') + 1);
 	ft_strdel(&data->line);
+	if (data->piece_x >= data->mapsize_x || data->piece_y >= data->mapsize_y)
+		return (error_handling(data, BAD_PIECE));
 	if (!init_piece(data, piece))
 	{
 		reset_data(data, piece);
-		return (END);
+		return (error_handling(data, BAD_MALLOC));
 	}
-	if (!read_piece(data, piece))
+	if (!read_piece(data, piece) || data->error == 1)
 	{
 		reset_data(data, piece);
-		return (END);
+		return (error_handling(data, BAD_PIECE));
 	}
 	return (1);
 }

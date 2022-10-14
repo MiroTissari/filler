@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:47 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/13 14:53:57 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:07:11 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # include "../libft/libft.h"
 
 # define END		0
+# define BAD_MAP	-1
+# define BAD_PIECE	-2
+# define BAD_INPUT	-3
+# define BAD_PLAYER	-4
+# define BAD_MALLOC	-5
 
 typedef struct s_filler
 {
@@ -26,6 +31,7 @@ typedef struct s_filler
 	int				boss_sign_s;
 	int				enemy_sign_s;
 	int				target;
+	int				error;
 
 	int				**map;
 	char			*line;
@@ -46,6 +52,7 @@ typedef struct s_piece
 }					t_piece;
 
 int		main(void);
+int		error_handling(t_filler *data, int err_nb);
 
 int		free_all(t_filler *data);
 int		reset_data(t_filler *data, t_piece *piece);

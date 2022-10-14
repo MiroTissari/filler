@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:27:56 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/13 15:25:43 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/14 17:49:06 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_t_filler(t_filler *data)
 	data->best_y = 0;
 	data->piece_x = 0;
 	data->piece_y = 0;
+	data->error = 0;
 }
 
 int	init_piece(t_filler *data, t_piece *piece)
@@ -92,6 +93,8 @@ int	free_all(t_filler *data)
 	int	i;
 
 	i = 0;
+	if (data->line)
+		ft_strdel(&data->line);
 	if (data->map)
 	{
 		while (i < data->mapsize_y)
@@ -101,10 +104,14 @@ int	free_all(t_filler *data)
 			i++;
 		}
 		free(data->map);
+		data->map = NULL;
 	}
-	ft_putnbr(0);
-	ft_putchar(' ');
-	ft_putnbr(0);
-	ft_putchar('\n');
+	if (data->error == 0)
+	{
+		ft_putnbr(0);
+		ft_putchar(' ');
+		ft_putnbr(0);
+		ft_putchar('\n');
+	}
 	return (END);
 }
