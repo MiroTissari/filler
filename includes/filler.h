@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:47 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/14 19:07:11 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:48:34 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ typedef struct s_piece
 }					t_piece;
 
 int		main(void);
-int		error_handling(t_filler *data, int err_nb);
 
 int		free_all(t_filler *data);
 int		reset_data(t_filler *data, t_piece *piece);
 int		init_piece(t_filler *data, t_piece *piece);
 void	init_t_filler(t_filler *data);
+int		error_handling(t_filler *data, int err_nb);
 
 int		get_players(t_filler *data);
 

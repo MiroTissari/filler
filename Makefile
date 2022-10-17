@@ -6,26 +6,33 @@
 #    By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/20 17:38:03 by mtissari          #+#    #+#              #
-#    Updated: 2022/10/13 14:48:02 by mtissari         ###   ########.fr        #
+#    Updated: 2022/10/17 16:56:13 by mtissari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY := all re clean fclean make
+
+# COMPILING:
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
+
+# SOURCES:
 FILES := coordinates.c heat_map.c main.c map_data.c piece_data.c player_data.c \
 		init.c
-O_FILES := $(FILES:.c=.o)
+S_PATH := sources/
+SOURCES := $(addprefix $(S_PATH), $(FILES))
+
+#INCLUDES:
 INCLUDES := -I includes/ -I libft/
 LIBFT := libft/
 LIB := libft/libft.a
 LINKER := -L libft -lft
+
+#OBJECTS:
+O_FILES := $(FILES:.c=.o)
 NAME := mtissari.filler
-S_PATH := sources/
-SOURCES := $(addprefix $(S_PATH), $(FILES))
 
 # COLORS
-
 BLUEB :=  \033[1;34m
 PURPLEB := \033[1;95m
 GREEN := \033[0;32m
@@ -60,8 +67,3 @@ fclean: clean
 	@echo "$(GREEN)$(PURPLEB)$(NAME) $(RED)deleted$(RESET)"
 
 re: fclean all
-
-# To launch the game:
-# First go to resources directory
-# Then launch the game with this command:
-# ./filler_vm -f maps/map01 -p1 players/abanlin.filler -p2 ../mtissari.filler

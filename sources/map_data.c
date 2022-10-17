@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:57:09 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/14 18:34:27 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:33:11 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int	skip_lines(t_filler *data)
 	else
 		ft_strdel(&data->line);
 	skip_lines(data);
+	if (data->error == 1)
+		return (0);
 	return (1);
 }
 

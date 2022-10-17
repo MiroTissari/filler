@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 18:27:56 by mtissari          #+#    #+#             */
-/*   Updated: 2022/10/14 17:49:06 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:48:09 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,30 @@ int	free_all(t_filler *data)
 		ft_putchar('\n');
 	}
 	return (END);
+}
+
+int	error_handling(t_filler *data, int err_nb)
+{
+	if (err_nb == BAD_MAP)
+	{
+		write (1, "invalid map\n", 13);
+	}
+	else if (err_nb == BAD_INPUT)
+	{
+		write (1, "bad input\n", 11);
+	}
+	else if (err_nb == BAD_PIECE)
+	{
+		write (1, "bad piece\n", 11);
+	}
+	else if (err_nb == BAD_PLAYER)
+	{
+		write (1, "bad player\n", 12);
+	}
+	else if (err_nb == BAD_MALLOC)
+	{
+		write (1, "malloc failed, exit the program\n", 33);
+	}
+	data->error = 1;
+	return (0);
 }
