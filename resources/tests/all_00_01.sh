@@ -4,7 +4,7 @@ declare -wins
 
 echo -e "\033[0;93m\t\t\t\tTESTING ...\033[0m\n\n"
 
-`./tests/clear_trace.sh`
+#`./tests/clear_trace.sh`
 
 echo -e "\n-------------------------\t\t\tABANLIN MAP 00\t\t\t-------------------------\n\n" >> trace_abanlin
 
