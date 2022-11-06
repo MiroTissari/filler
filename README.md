@@ -18,5 +18,10 @@ Key things I learned: Got more in depth with reading and saving data, how to cap
   
 ## How the game works
   
-The virtual machine gives
+The idea of the game is to fill a map with your own symbols.  
+Both players receive different shapes to put into the map and the game ends when neither player can put any more pieces to the map.  
+When a player cannot fit a piece to the map, the game ends for that player but the other player can continue until the same happens to it.  
+
+The virtual machine gives the program all the needed information in standard output.  
+Both players receive their symbol and starting position.
   
