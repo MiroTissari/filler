@@ -1,6 +1,7 @@
 # Filler - Create an AI player.
-  <img width="270" alt="Screen Shot 2022-12-22 at 7 25 26 PM" src="https://user-images.githubusercontent.com/90178358/209191779-b2c34c4c-c9a7-4b0d-9598-becd9a91f853.png"> <img width="272" alt="Screen Shot 2022-12-22 at 7 12 26 PM" src="https://user-images.githubusercontent.com/90178358/209190166-5a8cdb60-9954-40cb-86d3-9cff9374532a.png"> <img width="273" alt="Screen Shot 2022-12-22 at 7 22 06 PM" src="https://user-images.githubusercontent.com/90178358/209191419-d3e470e3-7d15-47a7-b263-9234767c025b.png">
-
+    
+<img width="1038" alt="Screen Shot 2022-12-22 at 7 33 11 PM" src="https://user-images.githubusercontent.com/90178358/209193288-05cf5a61-3763-4e47-92a9-b80d5baab370.png">
+  
 Filler-project is from the Algorithm-branch at The Hive Helsinki.  
 The objective is to create a (winning) player for a game that's given as a virtual machine.  
   
@@ -61,5 +62,5 @@ heatmap:
 
 <img width="372" alt="Screenshot 2022-10-12 at 13 51 12" src="https://user-images.githubusercontent.com/86073849/195326031-63d5bb13-04de-4b8f-a0ca-e79cef2fc012.png">
   
-  
+  <img width="270" alt="Screen Shot 2022-12-22 at 7 25 26 PM" src="https://user-images.githubusercontent.com/90178358/209191779-b2c34c4c-c9a7-4b0d-9598-becd9a91f853.png"> <img width="272" alt="Screen Shot 2022-12-22 at 7 12 26 PM" src="https://user-images.githubusercontent.com/90178358/209190166-5a8cdb60-9954-40cb-86d3-9cff9374532a.png"> <img width="273" alt="Screen Shot 2022-12-22 at 7 22 06 PM" src="https://user-images.githubusercontent.com/90178358/209191419-d3e470e3-7d15-47a7-b263-9234767c025b.png">
   
