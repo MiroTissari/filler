@@ -55,13 +55,12 @@ Eventually the problem was found in the algorithm.
 When I started the project, I already knew I was going to use the heat map -approach. The algorithm came to me quite quickly after completely understanding the rules and how the game flows.  
   
 
-before making the heatmap:
+How the map looks before making the heatmap: &emsp;&emsp;&emsp;&emsp;&emsp; Now when the heatmap is done: 
 
-<img width="252" alt="Screenshot 2022-10-12 at 14 26 52" src="https://user-images.githubusercontent.com/86073849/195331079-7dbd316b-feb7-4ccb-9e7a-970dabae2766.png">
-
-heatmap:
-
-<img width="372" alt="Screenshot 2022-10-12 at 13 51 12" src="https://user-images.githubusercontent.com/86073849/195326031-63d5bb13-04de-4b8f-a0ca-e79cef2fc012.png">
+<img width="252" alt="Screenshot 2022-10-12 at 14 26 52" src="https://user-images.githubusercontent.com/86073849/195331079-7dbd316b-feb7-4ccb-9e7a-970dabae2766.png">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img width="372" alt="Screenshot 2022-10-12 at 13 51 12" src="https://user-images.githubusercontent.com/86073849/195326031-63d5bb13-04de-4b8f-a0ca-e79cef2fc012.png">  
+('-1' means my area, and '-2' the enemy's area) 
+  
+  
   
   <img width="270" alt="Screen Shot 2022-12-22 at 7 25 26 PM" src="https://user-images.githubusercontent.com/90178358/209191779-b2c34c4c-c9a7-4b0d-9598-becd9a91f853.png"> <img width="272" alt="Screen Shot 2022-12-22 at 7 12 26 PM" src="https://user-images.githubusercontent.com/90178358/209190166-5a8cdb60-9954-40cb-86d3-9cff9374532a.png"> <img width="273" alt="Screen Shot 2022-12-22 at 7 22 06 PM" src="https://user-images.githubusercontent.com/90178358/209191419-d3e470e3-7d15-47a7-b263-9234767c025b.png">
   
