@@ -1,5 +1,6 @@
 # Filler - Create an AI player.
-  
+  <img width="328" alt="Screen Shot 2022-12-22 at 7 12 26 PM" src="https://user-images.githubusercontent.com/90178358/209190166-5a8cdb60-9954-40cb-86d3-9cff9374532a.png">
+
 Filler-project is from the Algorithm-branch at The Hive Helsinki.  
 The objective is to create a (winning) player for a game that's given as a virtual machine.  
   
