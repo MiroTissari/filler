@@ -6,15 +6,19 @@ The objective is to create a (winning) player for a game that's given as a virtu
 Key things I learned: Got more in depth with reading and saving data, how to capitalize the data, and that testing includes abusing the program with terrible arguments.  
   
   
+
 ## Executing the program
   
 - Clone the repository to your workspace and go to the root of the repo.
 - type `make` to create the executable (the player).
 - You can choose the player you want to play against, all the players are located at */resources/players/*.
 - You have three possibilities for map size - small(map00), regular(map01) or big(map02). The maps are located at */resources/maps/*.
-- To launch the game from the root:  
-&emsp; **./resources/filler_vm -f resources/maps/_mapsize-of-your-choice_ -p1 mtissari.filler -p2 resources/players/_player-of-your-choice_**
-- Example: `./resources/filler_vm -f resources/maps/map01 -p1 mtissari.filler -p2 resources/players/superjeannot`
+- To launch the game from the root you have to use the players in the resources/players -folder:  
+&emsp; **./resources/filler_vm -f resources/maps/_mapsize-of-your-choice_ -p1 resources/players/mtissari.filler -p2 resources/players/_player-of-your-choice_**
+- Example: `./resources/filler_vm -f resources/maps/map01 -p1 resources/players/mtissari.filler -p2 resources/players/superjeannot.filler`
+- To launch the player you just made with `make`:
+  - Go to resources directory (`cd resources`) and from there type:  
+&emsp; **./filler_vm -f maps/map01 -p1 ../mtissari.filler -p2 players/grati.filler** (or the player(or map) of your choice)
   
 ## How the game works
   
@@ -48,8 +52,13 @@ Eventually the problem was found in the algorithm.
 When I started the project, I already knew I was going to use the heat map -approach. The algorithm came to me quite quickly after completely understanding the rules and how the game flows.  
   
 
-  
-  
+before making the heatmap:
+
+<img width="252" alt="Screenshot 2022-10-12 at 14 26 52" src="https://user-images.githubusercontent.com/86073849/195331079-7dbd316b-feb7-4ccb-9e7a-970dabae2766.png">
+
+heatmap:
+
+<img width="372" alt="Screenshot 2022-10-12 at 13 51 12" src="https://user-images.githubusercontent.com/86073849/195326031-63d5bb13-04de-4b8f-a0ca-e79cef2fc012.png">
   
   
   
