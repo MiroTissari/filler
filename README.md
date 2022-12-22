@@ -57,7 +57,7 @@ When I started the project, I already knew I was going to use the heat map -appr
 
 How the map looks before making the heatmap: &emsp;&emsp;&emsp;&emsp;&emsp; Now when the heatmap is done: 
 
-<img width="252" alt="Screenshot 2022-10-12 at 14 26 52" src="https://user-images.githubusercontent.com/86073849/195331079-7dbd316b-feb7-4ccb-9e7a-970dabae2766.png">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img width="372" alt="Screenshot 2022-10-12 at 13 51 12" src="https://user-images.githubusercontent.com/86073849/195326031-63d5bb13-04de-4b8f-a0ca-e79cef2fc012.png">  
+<img width="252" alt="Screenshot 2022-10-12 at 14 26 52" src="https://user-images.githubusercontent.com/86073849/195331079-7dbd316b-feb7-4ccb-9e7a-970dabae2766.png">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<img width="372" alt="Screenshot 2022-10-12 at 13 51 12" src="https://user-images.githubusercontent.com/86073849/195326031-63d5bb13-04de-4b8f-a0ca-e79cef2fc012.png">  
 ('-1' means my area, and '-2' the enemy's area) 
   
   
